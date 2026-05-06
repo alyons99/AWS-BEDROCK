@@ -32,7 +32,7 @@ Run terraform destroy when not actively testing to ensure no idle resources accu
 ## Production Considerations
 This project is an MVP and would require changes to be ready for a production environment.
 
- The Lambda function currently has no caller authentication.
- There is no input validtation other than a null check for the prompt. Would likely want to check/sanatize inputs and maybe put guardrails on token usage.
- VPC Endpoint should be used as Bedrock is a public service.
- Logs should be encrypted in transit and at rest using customer managed keys (CMKs)
+ 1. he Lambda function currently has no caller authentication.
+ 2. There is no input validtation other than a null check for the prompt. Would likely want to check/sanatize inputs and maybe put guardrails on token usage.
+ 3. VPC Endpoint should be used as Bedrock is a public service.
+ 4. Logs should be encrypted in transit and at rest using customer managed keys (CMKs)
