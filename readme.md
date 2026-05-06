@@ -25,5 +25,8 @@ See nist.md in docs/
 See architecture.md in docs/ for more information
 
 ## Cost
+This project runs almost entirely within the AWS Free Tier for low-volume testing.
+Estimated cost for development and testing (100–200 invocations): under $0.10 total. Claude 3 Haiku is the least expensive Bedrock model and is used here specifically for that reason. 
+Run terraform destroy when not actively testing to ensure no idle resources accumulate cost.
 
 ## Production Considerations
