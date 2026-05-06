@@ -30,3 +30,9 @@ Estimated cost for development and testing (100–200 invocations): under $0.10 
 Run terraform destroy when not actively testing to ensure no idle resources accumulate cost.
 
 ## Production Considerations
+This project is an MVP and would require changes to be ready for a production environment.
+
+ The Lambda function currently has no caller authentication.
+ There is no input validtation other than a null check for the prompt. Would likely want to check/sanatize inputs and maybe put guardrails on token usage.
+ VPC Endpoint should be used as Bedrock is a public service.
+ Logs should be encrypted in transit and at rest using customer managed keys (CMKs)
