@@ -36,3 +36,4 @@ This project is an MVP and would require changes to be ready for a production en
  2. There is no input validtation other than a null check for the prompt. Would likely want to check/sanatize inputs and maybe put guardrails on token usage.
  3. VPC Endpoint should be used as Bedrock is a public service.
  4. Logs should be encrypted in transit and at rest using customer managed keys (CMKs)
+ 5. Logs and outputs may want to be securely stored long term in a service like S3.
