@@ -21,7 +21,7 @@ Goal is to safely integrate the capabilites of a LLM safely into a secure system
 See nist.md in docs/
 
 ## Architecture
-<img src="https://github.com/alyons99/AWS-EVENT-DRIVEN-SECURITY-PIPELINE/blob/eeb30cc5c701479f94d37c10bc5c874207d9caf1/docs/AWS-EVENT-DRIVEN-SECURE-PIPELINE.png" alt="Alt text" width="450" height="300">
+<img src="https://github.com/alyons99/AWS-BEDROCK/blob/main/docs/AWS%20Bedrock%20Invocation%20Flow.png" alt="Alt text" width="450" height="300">
 See architecture.md in docs/ for more information
 
 ## Cost
