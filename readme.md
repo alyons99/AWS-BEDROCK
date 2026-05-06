@@ -21,7 +21,7 @@ Goal is to safely integrate the capabilites of a LLM safely into a secure system
 See nist.md in docs/
 
 ## Architecture
-<img src="https://github.com/alyons99/AWS-BEDROCK/blob/main/docs/AWS%20Bedrock%20Invocation%20Flow.png" alt="Alt text" width="450" height="300">
+<img src="https://github.com/alyons99/AWS-BEDROCK/blob/main/docs/AWS%20Bedrock%20Invocation%20Flow.png" alt="Alt text" width="350" height="350">
 See architecture.md in docs/ for more information
 
 ## Cost
