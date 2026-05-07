@@ -22,7 +22,7 @@ calls via the AWS CLI or SDK. The event payload contains a single field:
 In this implementation the caller is a local terminal using `aws lambda
 invoke`. In a production deployment the function would sit behind API
 Gateway with an authorizer. No changes to the function code or IAM policy
-are required to make that transition — the handler is agnostic to how it
+are required to make that transition, the handler is agnostic to how it
 is invoked.
  
 ### Tier 2 Input Validation
@@ -55,12 +55,12 @@ writes a structured JSON log entry to CloudWatch:
  
 Logging before the external call is deliberate. If Bedrock is unavailable
 or returns an error, a record of the inbound request still exists. The
-`request_id` is Lambda's own invocation ID — it is the correlation key
+`request_id` is Lambda's own invocation ID, it is the correlation key
 that links this entry to the response entry written in Tier 5.
  
 Full prompt text is intentionally not logged. Only the first 100 characters
 are retained as `prompt_preview`. This is a data minimization control
-aligned to NIST SI-12 — callers may embed PII or sensitive content in
+aligned to NIST SI-12, callers may embed PII or sensitive content in
 prompts, and the log store may have broader read access than the
 application itself.
  
@@ -76,7 +76,7 @@ Messages API schema required by Bedrock:
 The Lambda execution role is authorized to call `bedrock:InvokeModel`
 against exactly one model ARN. No other Bedrock actions are permitted.
 No other model ARNs are accessible. This is enforced at the IAM layer,
-not the application layer — the function could not invoke a different
+not the application layer, the function could not invoke a different
 model even if the code were modified to attempt it.
  
 ### Tier 5 Audit Logging (Response)
