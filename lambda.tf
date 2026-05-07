@@ -22,7 +22,7 @@ resource "aws_lambda_function" "bedrock_inference" {
     }
   }
 
-#passing variables through
+#passing variables through 
   depends_on = [
     aws_cloudwatch_log_group.lambda_logs,
     aws_iam_role_policy.lambda_inline
