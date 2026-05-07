@@ -4,23 +4,26 @@ import boto3
 import os
 from datetime import datetime, timezone
 
+#for execution enviornment warm starts
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 bedrock = boto3.client("bedrock-runtime", region_name=os.environ.get("AWS_REGION", "us-east-1"))
 MODEL_ID = os.environ.get("MODEL_ID", "anthropic.claude-3-haiku-20240307-v1:0")
 
-
+#lambda handler passes in the prompt and content
 def lambda_handler(event, context):
     request_id = context.aws_request_id
     prompt = event.get("prompt", "")
 
+    #basic input validation, prompt needs to be present and under 4k chars
     if not prompt or not isinstance(prompt, str):
         return {"statusCode": 400, "body": json.dumps({"error": "Missing or invalid 'prompt' field"})}
 
     if len(prompt) > 4000:
         return {"statusCode": 400, "body": json.dumps({"error": "Prompt exceeds maximum length of 4000 characters"})}
 
+    #call logging w/ cw logs
     logger.info(json.dumps({
         "event": "inference_request",
         "request_id": request_id,
@@ -30,6 +33,7 @@ def lambda_handler(event, context):
         "prompt_preview": prompt[:100]
     }))
 
+    #bedrock call
     try:
         response = bedrock.invoke_model(
             modelId=MODEL_ID,
@@ -44,6 +48,7 @@ def lambda_handler(event, context):
         output_text = result["content"][0]["text"]
         usage = result.get("usage", {})
 
+        #response logging w/ cw logs
         logger.info(json.dumps({
             "event": "inference_response",
             "request_id": request_id,
@@ -62,6 +67,8 @@ def lambda_handler(event, context):
             })
         }
 
+    #error handling
+    #access denied error returns error code
     except bedrock.exceptions.AccessDeniedException:
         logger.error(json.dumps({
             "event": "inference_error",
@@ -70,6 +77,7 @@ def lambda_handler(event, context):
         }))
         return {"statusCode": 403, "body": json.dumps({"error": "Model access denied", "request_id": request_id})}
 
+    #throttling error returns error code
     except bedrock.exceptions.ThrottlingException:
         logger.error(json.dumps({
             "event": "inference_error",
@@ -78,6 +86,7 @@ def lambda_handler(event, context):
         }))
         return {"statusCode": 429, "body": json.dumps({"error": "Rate limited by Bedrock", "request_id": request_id})}
 
+    #All other errors are capture and logged with a catch all 500
     except Exception as e:
         logger.error(json.dumps({
             "event": "inference_error",
