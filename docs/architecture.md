@@ -136,13 +136,13 @@ following changes:
  
 | Component | Demo Configuration | Production Configuration |
 |---|---|---|
-| Caller authentication | None — any principal with `lambda:InvokeFunction` | API Gateway with IAM SigV4, Cognito, or Lambda authorizer |
+| Caller authentication | Any principal with `lambda:InvokeFunction` | API Gateway with IAM SigV4, Cognito, or Lambda authorizer |
 | Network boundary | Lambda in AWS-managed environment, public internet to Bedrock | Lambda in VPC with Bedrock VPC endpoint |
 | Log encryption | CloudWatch default encryption | KMS customer-managed key on log group |
 | Log retention | 30 days | 90+ days per NIST AU-11 |
 | Input validation | Length cap and type check | Maximum length enforcement, injection pattern detection, structured error responses with correlation IDs |
 | Terraform state | Local `terraform.tfstate` | Remote backend (S3 + DynamoDB lock) with restricted bucket access |
-| Prompt logging | 100-character preview | Decision based on data classification — full logging if prompts are confirmed non-sensitive, enabling Logs Insights queries |
-| Model access | Single model ARN | Same — least-privilege IAM scoping is already production-appropriate |
+| Prompt logging | 100-character preview | Decision based on data classification with full logging if prompts are confirmed non-sensitive, enabling Logs Insights queries |
+| Model access | Single model ARN | Same least-privilege IAM scoping is already production-appropriate |
  
 ---
